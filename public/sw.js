@@ -1,11 +1,12 @@
 /* eslint-disable no-restricted-globals */
+/* eslint-disable no-undef */
 
-const CACHE_STATIC_NAME = 'static-v1'
-const CACHE_DYNAMIC_NAME = 'dynamic-v1'
-const STATIC_FILES = ['/index.html']
+const CACHE_STATIC_NAME = 'static-v2'
+const CACHE_DYNAMIC_NAME = 'dynamic-v2'
+const STATIC_FILES = ['/index.html', '/idb.js']
 
-// eslint-disable-next-line no-undef
 importScripts('periodic-bg-sync.js')
+// importScripts('../src/utils/indexedDB.js')
 
 self.addEventListener('install', function (event) {
   event.waitUntil(
