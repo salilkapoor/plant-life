@@ -4,6 +4,9 @@ const CACHE_STATIC_NAME = 'static-v1'
 const CACHE_DYNAMIC_NAME = 'dynamic-v1'
 const STATIC_FILES = ['/index.html']
 
+// eslint-disable-next-line no-undef
+importScripts('periodic-bg-sync.js')
+
 self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(CACHE_STATIC_NAME).then(function (cache) {
