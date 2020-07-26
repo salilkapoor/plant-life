@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import App from './App'
+import App from './components/templates/App/App'
 import { registerWorker } from './utils/sw/serviceWorker'
 
 import './index.css'
