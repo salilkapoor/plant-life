@@ -1,30 +1,82 @@
-import React from 'react'
+import React, { Suspense } from 'react'
+import { BrowserRouter as Router, Switch } from 'react-router-dom'
 
-import useWebInstallPrompt from './hooks/useWebInstallPrompt'
+import AlertTemplate from 'react-alert-template-basic'
+import { positions, Provider } from 'react-alert'
+import { StateProvider } from './store/stateProvider'
+import { makeStyles } from '@material-ui/core/styles'
+import { PrivateRoute, PublicRoute } from './utils'
 
-import './App.css'
+import SignIn from './components/SignIn/SignIn'
+import ForgotPassword from './components/SignIn/ForgotPassword'
+import ResetPassword from './components/SignIn/ResetPassword'
+import Signup from './components/SignIn/Signup'
+import ErrorBoundary from './components/ErrorBoundary'
+import Header from './components/Header'
+import Settings from './components/Settings'
+import Overview from './components/Overview'
 
-import logo from './logo.svg'
+const options = {
+  timeout: 5000,
+  position: positions.TOP_CENTER
+}
 
-function App() {
-  const [
-    installPromptEvent,
-    handleInstallDeclined,
-    handleInstallAccepted
-  ] = useWebInstallPrompt()
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex'
+  },
+  content: {
+    flexGrow: 1,
+    width: '0px'
+  }
+}))
+
+const Routing = () => {
+  const classes = useStyles()
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <button className="App-link" onClick={() => handleInstallAccepted()}>
-          Learn React
-        </button>
-      </header>
-    </div>
+    <ErrorBoundary>
+      <Router>
+        <div className={classes.root}>
+          <Header />
+          <main className={classes.content}>
+            <Suspense
+              fallback={() => {
+                return <div>Loading...</div>
+              }}
+            >
+              <Switch>
+                <PrivateRoute exact path="/" component={SignIn} />
+                <PublicRoute exact path="/signup" component={Signup} />
+                <PublicRoute exact path="/signin" component={SignIn} />
+                <PublicRoute
+                  exact
+                  path="/forgot-password"
+                  component={ForgotPassword}
+                />
+                <PublicRoute
+                  exact
+                  path="/reset-password/:token"
+                  component={ResetPassword}
+                />
+                <PublicRoute exact path="/settings" component={Settings} />
+                <PublicRoute exact path="/overview" component={Overview} />
+              </Switch>
+            </Suspense>
+          </main>
+        </div>
+      </Router>
+    </ErrorBoundary>
+  )
+}
+
+function App() {
+  return (
+    <StateProvider>
+      <Provider template={AlertTemplate} {...options}>
+        <Routing />
+      </Provider>
+    </StateProvider>
   )
 }
 

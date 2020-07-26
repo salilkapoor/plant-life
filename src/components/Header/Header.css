@@ -1,0 +1,41 @@
+.MuiAppBar-colorPrimary {
+  color: #fff;
+  background-color: #ffffff !important;
+}
+.change-branch {
+  background: #fff;
+  padding: 0px 5px!important;
+  border: 1px solid #a6a6a6;
+  border-radius: 5px;
+  width: 200px;
+  margin-left: 5px;
+  color: #a6a6a6!important;
+}
+.change-branch:hover{
+  background-color: #fff;
+}
+
+.MuiTypography-h6 {
+  font-size: 1.25rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 300 !important;
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+}
+
+.logo{
+  width: 35px !important;
+  padding: 5px;
+  margin: 5px 10px;
+}
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.container > h3 {
+  margin-left: auto;
+  margin-right: auto;
+}
