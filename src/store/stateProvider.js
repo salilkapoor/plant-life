@@ -24,7 +24,8 @@ let initialState = {
   }
 }
 
-let token = cookieLoad('EnToken');
+// let token = cookieLoad('EnToken');
+let token = null;
 if(token){
   let decodedToken = decodeToken(token);
   initialState = {

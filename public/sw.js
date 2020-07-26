@@ -3,10 +3,16 @@
 
 const CACHE_STATIC_NAME = 'static-v2'
 const CACHE_DYNAMIC_NAME = 'dynamic-v2'
-const STATIC_FILES = ['/index.html', '/idb.js']
+const STATIC_FILES = [
+  '/index.html',
+  '/idb.js',
+  '/utility.js',
+  '/signin',
+  '/overview'
+]
 
 importScripts('periodic-bg-sync.js')
-// importScripts('../src/utils/indexedDB.js')
+importScripts('notify.js')
 
 self.addEventListener('install', function (event) {
   event.waitUntil(

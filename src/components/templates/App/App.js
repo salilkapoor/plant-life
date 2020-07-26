@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom'
 import AlertTemplate from 'react-alert-template-basic'
 import { positions, Provider } from 'react-alert'
 import { makeStyles } from '@material-ui/core/styles'
-import { PrivateRoute, PublicRoute } from '../../../utils'
 
 import { StateProvider } from '../../../store/stateProvider'
 
@@ -17,8 +16,10 @@ import Settings from '../../Settings'
 import Overview from '../../Overview'
 import { Dashboard } from '../../organisms/Dashboard'
 
+import { PrivateRoute, PublicRoute } from '../../../utils'
 import useWebInstallPrompt from '../../../hooks/useWebInstallPrompt'
 import usePeriodicSync from '../../../hooks/usePeriodicSync'
+import useNotification from '../../../hooks/useNotification'
 
 const options = {
   timeout: 5000,
@@ -77,12 +78,19 @@ const Routing = () => {
 function App() {
   const [, , handleInstallAccepted] = useWebInstallPrompt()
   usePeriodicSync()
+  const { askForNotificationPermission } = useNotification()
 
   return (
     <div className="App">
       <header className="App-header">
         <button className="App-link" onClick={() => handleInstallAccepted()}>
-          Learn React
+          App Installation
+        </button>
+        <button
+          className="App-link"
+          onClick={() => askForNotificationPermission()}
+        >
+          Enable Notifications
         </button>
       </header>
       <Dashboard />

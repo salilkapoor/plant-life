@@ -9,7 +9,7 @@ const usePeriodicSync = () => {
         try {
           if (!tags.includes('data-sync')) {
             await registration.periodicSync.register('data-sync', {
-              minInterval: 5 * 60000
+              minInterval: 12 * 60 * 60 * 1000
             })
           }
         } catch (error) {
