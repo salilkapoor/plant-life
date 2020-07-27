@@ -74,7 +74,7 @@ const Header = (props) => {
   }, [])
 
   const refresh = () => {
-    window.location.href = '/signin'
+    window.location.reload()
   }
 
   return (
@@ -85,10 +85,7 @@ const Header = (props) => {
       <CssBaseline />
       {!store.isLogin && (
         <>
-          <AppBar
-            position="fixed"
-            className={clsx(classes.appBar, open && classes.appBarShift)}
-          >
+          <AppBar className={clsx(classes.appBar, open && classes.appBarShift)}>
             <Toolbar className={classes.toolbar}>
               <IconButton
                 edge="start"
