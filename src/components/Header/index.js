@@ -60,7 +60,7 @@ const Header = (props) => {
   }
 
   useEffect(() => {
-    let token = cookieLoad('EnToken')
+    let token = cookieLoad('token')
     if (token) {
       let decodedToken = decodeToken(token)
       dispatch({
@@ -83,7 +83,7 @@ const Header = (props) => {
         <source src={notificationSound} type="audio/mpeg"></source>
       </audio>
       <CssBaseline />
-      {!store.isLogin && (
+      {store.isLogin && (
         <>
           <AppBar className={clsx(classes.appBar, open && classes.appBarShift)}>
             <Toolbar className={classes.toolbar}>

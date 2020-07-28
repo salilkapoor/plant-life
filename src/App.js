@@ -8,8 +8,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import { PrivateRoute, PublicRoute } from './utils'
 
 import SignIn from './components/SignIn/SignIn'
-import ForgotPassword from './components/SignIn/ForgotPassword'
-import ResetPassword from './components/SignIn/ResetPassword'
 import Signup from './components/SignIn/Signup'
 import ErrorBoundary from './components/ErrorBoundary'
 import Header from './components/Header'
@@ -50,18 +48,8 @@ const Routing = () => {
                 <PrivateRoute exact path="/" component={SignIn} />
                 <PublicRoute exact path="/signup" component={Signup} />
                 <PublicRoute exact path="/signin" component={SignIn} />
-                <PublicRoute
-                  exact
-                  path="/forgot-password"
-                  component={ForgotPassword}
-                />
-                <PublicRoute
-                  exact
-                  path="/reset-password/:token"
-                  component={ResetPassword}
-                />
-                <PublicRoute exact path="/settings" component={Settings} />
-                <PublicRoute exact path="/overview" component={Overview} />
+                <PrivateRoute exact path="/settings" component={Settings} />
+                <PrivateRoute exact path="/overview" component={Overview} />
               </Switch>
             </Suspense>
           </main>

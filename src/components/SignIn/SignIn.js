@@ -1,45 +1,16 @@
 import React, { useState } from 'react'
-import { Redirect } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useStateValue } from '../../store/stateProvider'
-import {
-  Button,
-  makeStyles,
-  Paper,
-  TextField,
-  Link,
-  Container
-} from '@material-ui/core'
-import Logo from '../Assets/logo.png'
-import './style.css'
-
-import axios from 'axios'
+import { Button, Paper, TextField, Container } from '@material-ui/core'
+import { API_POST } from '../../utils/api'
 import { cookieSave, decodeToken } from '../../utils'
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(4),
-    padding: theme.spacing(5),
-    margin: 'auto',
-    maxWidth: 750,
-    maxHeight: 750,
-    borderRadius: 5,
-    border: '0.5px solid #a6a6a6'
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
-  },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1)
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
-}))
+import useStyles from './style.js'
 
 function SignIn(props) {
   const { errorMessage, successMessage } = props
+  let history = useHistory()
+  const [store, dispatch] = useStateValue()
 
   const classes = useStyles()
   const [email, setEmail] = useState('')
@@ -60,7 +31,27 @@ function SignIn(props) {
 
   function signin(e) {
     e.preventDefault()
-    props.history.push('/overview')
+
+    API_POST('login', {
+      email,
+      password
+    })
+      .then((response) => {
+        cookieSave(response.data.token)
+        let decodedToken = decodeToken(response.data.token)
+        dispatch({
+          type: 'INITIALIZE_LOGIN_SUCCESS',
+          payload: {
+            token: response.data.token,
+            isLogin: true,
+            uid: decodedToken.uid
+          }
+        })
+        history.push('/overview')
+      })
+      .catch((err) => {
+        console.log('Error', err)
+      })
   }
 
   return (
