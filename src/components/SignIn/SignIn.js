@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { useStateValue } from '../../store/stateProvider'
-import { Button, Paper, TextField, Container } from '@material-ui/core'
+import { Button, Paper, TextField, Container, Grid } from '@material-ui/core'
 import { API_POST } from '../../utils/api'
 import { cookieSave, decodeToken } from '../../utils'
-
 import useStyles from './style.js'
 
 function SignIn(props) {
-  const { errorMessage, successMessage } = props
   let history = useHistory()
   const [store, dispatch] = useStateValue()
 
@@ -105,6 +103,9 @@ function SignIn(props) {
           </Button>
         </form>
       </Paper>
+      <Grid container justify="center" className={classes.btns}>
+        <Link to="/signup">Signup</Link>
+      </Grid>
     </Container>
   )
 }

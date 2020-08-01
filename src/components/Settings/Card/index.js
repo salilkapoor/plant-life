@@ -1,27 +1,29 @@
 import React from 'react'
-import { Grid, Paper, Typography, CircularProgress } from '@material-ui/core'
+import { Paper, Table, TableBody, TableCell, TableRow } from '@material-ui/core'
 
 import useStyles from './style.js'
 
-const CustomCard = ({ title, content, Icon, iconColor }) => {
+const CustomCard = ({ plantName, deviceId }) => {
   const classes = useStyles()
 
   return (
     <Paper className={classes.paper}>
-      <Grid container>
-        <Grid item xs={4} md={4} lg={4}>
-          <div
-            className="card-icon"
-            style={{ 'background-color': iconColor }}
-          ></div>
-        </Grid>
-        <Grid item xs={7} sm={7} md={7} lg={7} className={classes.inCenter}>
-          <Typography className={classes.heading}>{title}</Typography>
-          <Typography className={classes.count}>
-            {content ? content : <CircularProgress color="secondary" />}
-          </Typography>
-        </Grid>
-      </Grid>
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell component="th">Plant Name</TableCell>
+            <TableCell style={{ width: 160 }} align="right">
+              {plantName}
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell component="th">Device Id</TableCell>
+            <TableCell style={{ width: 160 }} align="right">
+              {deviceId}
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </Paper>
   )
 }

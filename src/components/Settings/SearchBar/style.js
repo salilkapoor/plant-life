@@ -15,12 +15,29 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#f5f5f5'
     }
   },
+  searchBar: {
+    position: 'relative'
+  },
   btn: {
     marginLeft: '10px',
     width: '60%'
   },
   btn_wrapper: {
-    margin: '10px'
+    margin: '5px',
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  btnItem: {
+    alignItems: 'center',
+    display: 'flex'
+  },
+  search_result: {
+    position: 'absolute',
+    background: 'white',
+    maxHeight: '220px',
+    height: 'auto',
+    zIndex: '999;',
+    width: '100%'
   }
 }))
 

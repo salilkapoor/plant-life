@@ -23,6 +23,20 @@ export default (state, action) => {
         token: action.payload.token,
         uid: action.payload.uid
       }
+
+    case 'PLANT_SELECTED':
+      return {
+        ...state,
+        plantSelected: {
+          id: action.payload.plantId,
+          commonName: action.payload.commonName,
+          humidity: action.payload.humidity,
+          maxTemp: action.payload.maxTemp,
+          minTemp: action.payload.minTemp,
+          moisture: action.payload.moisture,
+          deviceId: action.payload.deviceId
+        }
+      }
     case 'ERROR_MESSAGES':
       return {
         ...state,

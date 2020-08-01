@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '16px',
     color: '#5f5f5f'
   },
-  count: {
-    fontSize: '24px'
+  names: {
+    fontSize: '18px'
   },
   inCenter: {
     display: 'flex',

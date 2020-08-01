@@ -1,4 +1,5 @@
 const constants = {
-    INITIALIZE_LOGIN_SUCCESS: "INITIALIZE_LOGIN_SUCCESS",
+  INITIALIZE_LOGIN_SUCCESS: 'INITIALIZE_LOGIN_SUCCESS',
+  PLANT_SELECTED: 'PLANT_SELECTED'
 }
-export default constants;
+export default constants

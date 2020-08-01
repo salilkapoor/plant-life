@@ -1,5 +1,8 @@
 import React, { Suspense } from 'react'
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
+import { FirebaseDatabaseProvider } from '@react-firebase/database'
+import firebase from 'firebase'
+import { config } from './utils/config'
 
 import AlertTemplate from 'react-alert-template-basic'
 import { positions, Provider } from 'react-alert'
@@ -61,11 +64,13 @@ const Routing = () => {
 
 function App() {
   return (
-    <StateProvider>
-      <Provider template={AlertTemplate} {...options}>
-        <Routing />
-      </Provider>
-    </StateProvider>
+    <FirebaseDatabaseProvider {...config.firebaseConfig} firebase={firebase}>
+      <StateProvider>
+        <Provider template={AlertTemplate} {...options}>
+          <Routing />
+        </Provider>
+      </StateProvider>
+    </FirebaseDatabaseProvider>
   )
 }
 

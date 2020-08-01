@@ -21,6 +21,9 @@ import MenuIcon from '@material-ui/icons/Menu'
 import RefreshIcon from '@material-ui/icons/Refresh'
 import notificationSound from '../../components/Assets/sounds/notificationSound.mp3'
 import { useStyles } from './style'
+
+import { API_GET } from '../../utils/api'
+
 import './Header.css'
 
 import { useStateValue } from '../../store/stateProvider'
@@ -67,10 +70,31 @@ const Header = (props) => {
         type: 'LOGIN_PERSIST',
         payload: {
           token: token,
-          isLogin: true
+          isLogin: true,
+          uid: decodedToken.uid
         }
       })
     }
+
+    API_GET(`users/plants`)
+      .then((res) => {
+        let data = res.data[0]
+        dispatch({
+          type: 'PLANT_SELECTED',
+          payload: {
+            plantId: data.plantId._id,
+            commonName: data.plantId.commonName,
+            humidity: data.plantId.humidity,
+            maxTemp: data.plantId.maxTemp,
+            minTemp: data.plantId.minTemp,
+            moisture: data.plantId.moisture,
+            deviceId: data.deviceId
+          }
+        })
+      })
+      .catch((err) => {
+        console.log('Error', err)
+      })
   }, [])
 
   const refresh = () => {
@@ -123,6 +147,7 @@ const Header = (props) => {
                 !open && classes.drawerPaperClose
               )
             }}
+            className="drawerPaper"
             open={open}
             onMouseEnter={handleDrawerOpen}
             onMouseLeave={handleDrawerClose}
