@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory, Link, Redirect } from 'react-router-dom'
 import { useStateValue } from '../../store/stateProvider'
 import { Button, Paper, TextField, Container, Grid } from '@material-ui/core'
 import { API_POST } from '../../utils/api'
@@ -53,60 +53,66 @@ function SignIn(props) {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <h1>Plant Control System</h1>
-      <Paper className={classes.paper}>
-        <div className="signin-title">
-          <h2>SignIn</h2>
-          <span>to continue to Admin Dashboard</span>
-        </div>
-        <form className={classes.form} noValidate onSubmit={signin}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            value={email}
-            onChange={(e) => {
-              credentials(e)
-            }}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            value={password}
-            autoComplete="current-password"
-            onChange={(e) => {
-              credentials(e)
-            }}
-          />
+    <>
+      {store?.token ? (
+        <Redirect to="/overview" />
+      ) : (
+        <Container component="main" maxWidth="xs">
+          <h1>Plant Control System</h1>
+          <Paper className={classes.paper}>
+            <div className="signin-title">
+              <h2>SignIn</h2>
+              <span>to continue to Admin Dashboard</span>
+            </div>
+            <form className={classes.form} noValidate onSubmit={signin}>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                value={email}
+                onChange={(e) => {
+                  credentials(e)
+                }}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                value={password}
+                autoComplete="current-password"
+                onChange={(e) => {
+                  credentials(e)
+                }}
+              />
 
-          <Button
-            fullWidth
-            variant="contained"
-            type="submit"
-            color="primary"
-            className={classes.submit}
-            onClick={signin}
-          >
-            Sign In
-          </Button>
-        </form>
-      </Paper>
-      <Grid container justify="center" className={classes.btns}>
-        <Link to="/signup">Signup</Link>
-      </Grid>
-    </Container>
+              <Button
+                fullWidth
+                variant="contained"
+                type="submit"
+                color="primary"
+                className={classes.submit}
+                onClick={signin}
+              >
+                Sign In
+              </Button>
+            </form>
+          </Paper>
+          <Grid container justify="center" className={classes.btns}>
+            <Link to="/signup">Signup</Link>
+          </Grid>
+        </Container>
+      )}
+    </>
   )
 }
 
