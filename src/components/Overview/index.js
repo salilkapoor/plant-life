@@ -18,6 +18,35 @@ import { useStyles } from './style'
 
 // Store
 import { useStateValue } from '../../store/stateProvider'
+import { API_POST } from '../../utils/api'
+import {
+  requestFirebaseNotificationPermission,
+  onMessageListener
+} from '../../utils/firebaseMessage'
+
+requestFirebaseNotificationPermission()
+  .then((firebaseToken) => {
+    API_POST('users/push-notification', {
+      token: firebaseToken
+    })
+      .then((response) => {
+        console.log('Response', response)
+      })
+      .catch((err) => {
+        console.log('Error', err)
+      })
+  })
+  .catch((err) => {
+    return err
+  })
+
+onMessageListener()
+  .then((payload) => {
+    console.log('payload', payload)
+  })
+  .catch((err) => {
+    console.log('Errrrorr', err)
+  })
 
 const Overview = () => {
   const classes = useStyles()

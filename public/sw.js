@@ -10,9 +10,9 @@ self.addEventListener('activate', (event) => {
 
   event.waitUntil(
     caches.keys().then((keyList) => {
-      return Promise.all(
+      return new Promise.all(
         keyList.forEach((key) => {
-          if (cacheList.indexOf(key) === -1) {
+          if (!cacheList.includes(key)) {
             console.log('[Service Worker] Removing old cache.', key)
             return caches.delete(key)
           }
