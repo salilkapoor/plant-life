@@ -28,9 +28,9 @@ const StandardRating = ({ titles, ratings, footer }) => {
             justify="center"
             className={classes.titleWrapper}
           >
-            {titles?.map((title) => {
+            {titles?.map((title, index) => {
               return (
-                <Typography className={classes.title}>
+                <Typography key={title + index} className={classes.title}>
                   <b>{title}</b>
                 </Typography>
               )
