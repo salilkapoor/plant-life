@@ -27,7 +27,7 @@ const CustomCard = ({ title, content, Icon, iconColor }) => {
   const classes = useStyles()
 
   return (
-    <Grid item id="card" xs={12} sm={8} md={6} lg={3}>
+    <Grid item id="card" xs={12} sm={12} md={6} lg={3}>
       <Paper className={classes.content}>
         <Grid container>
           <Grid item xs={4} md={4} lg={4}>
@@ -36,8 +36,10 @@ const CustomCard = ({ title, content, Icon, iconColor }) => {
             </div>
           </Grid>
           <Grid item xs={7} sm={7} md={7} lg={7} className={classes.inCenter}>
-            <Typography className={classes.heading}>{title}</Typography>
-            <Typography className={classes.count}>
+            <Typography component={'span'} className={classes.heading}>
+              {title}
+            </Typography>
+            <Typography component={'span'} className={classes.count}>
               {!content?.includes('undefined') ? (
                 content
               ) : (
