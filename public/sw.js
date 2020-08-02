@@ -1,20 +1,9 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-undef */
-importScripts('periodic-bg-sync.js')
 importScripts('notify.js')
 
 const CACHE_STATIC_NAME = 'static-v3'
 const CACHE_DYNAMIC_NAME = 'dynamic-v3'
-// const STATIC_FILES = ['/index.html', '/idb.js', '/utility.js']
-
-// self.addEventListener('install', (event) => {
-//   event.waitUntil(
-//     caches.open(CACHE_STATIC_NAME).then(function (cache) {
-//       console.log('Pre-Caching Service worker files')
-//       cache.addAll(STATIC_FILES)
-//     })
-//   )
-// })
 
 self.addEventListener('activate', (event) => {
   let cacheList = [CACHE_STATIC_NAME, CACHE_DYNAMIC_NAME]

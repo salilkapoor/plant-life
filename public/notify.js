@@ -1,53 +1,39 @@
 /* eslint-disable no-restricted-globals */
+/* eslint-disable no-undef */
+importScripts('https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js')
+importScripts('https://www.gstatic.com/firebasejs/7.17.1/firebase-messaging.js')
 
-self.addEventListener('notificationclick', function (event) {
-  var notification = event.notification
-  var action = event.action
+const firebaseConfig = {
+  apiKey: 'AIzaSyDHzEzAnkEgpR9ywar9PWEaazKlBpqWz7w',
+  authDomain: 'plant-monitoring-a90ac.firebaseapp.com',
+  databaseURL: 'https://plant-monitoring-a90ac.firebaseio.com',
+  projectId: 'plant-monitoring-a90ac',
+  storageBucket: 'plant-monitoring-a90ac.appspot.com',
+  messagingSenderId: '1090079560968',
+  appId: '1:1090079560968:web:03781984ff585b8a77c8bd',
+  measurementId: 'G-CXW74JGLLY'
+}
 
-  if (action === 'confirm') {
-    console.log('Confirm was chosen')
-    // notification.close()
-  } else {
-    console.log(action)
-    // event.waitUntil(
-    //   clients.matchAll().then(function (clis) {
-    //     var client = clis.find(function (c) {
-    //       return c.visibilityState === 'visible'
-    //     })
+firebase.initializeApp(firebaseConfig)
+const messaging = firebase.messaging()
 
-    //     if (client !== undefined) {
-    //       client.navigate(notification.data.url)
-    //       client.focus()
-    //     } else {
-    //       clients.openWindow(notification.data.url)
-    //     }
-    //     notification.close()
-    //   })
-    // )
+messaging.setBackgroundMessageHandler(function (payload) {
+  console.log(
+    '[firebase-messaging-sw.js] Received background message ',
+    payload
+  )
+  const notificationTitle = payload.data.title
+  const notificationOptions = {
+    body: payload.data.body,
+    icon: '/firebase-logo.png'
   }
+  return self.registration.showNotification(
+    notificationTitle,
+    notificationOptions
+  )
 })
 
-self.addEventListener('notificationclose', function (event) {
-  console.log('Notification was closed', event)
-})
-
-self.addEventListener('push', function (event) {
-  console.log('Push Notification received', event)
-
-  var data = { title: 'New!', content: 'Something new happened!', openUrl: '/' }
-
-  // if (event.data) {
-  //   data = JSON.parse(event.data.text())
-  // }
-
-  var options = {
-    body: data.content,
-    icon: '/logo192.png',
-    badge: '/logo192.png',
-    data: {
-      url: data.openUrl
-    }
-  }
-
-  event.waitUntil(self.registration.showNotification(data.title, options))
+self.addEventListener('notificationclick', (event) => {
+  console.log(event)
+  return event
 })
