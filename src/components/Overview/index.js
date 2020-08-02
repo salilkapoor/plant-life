@@ -52,7 +52,6 @@ const Overview = () => {
         </Grid>
       </Container>
 
-      {/* Social Distancing card and graph */}
       <Container className={classes.block}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={3} sm={12} lg={3}>
@@ -67,8 +66,8 @@ const Overview = () => {
 
           <Grid item xs={12} md={9} sm={12} lg={9}>
             <LineChart
-              heading="Social Distancing Trend"
-              title="Average Social Distancing Score"
+              heading="Temperature Variation"
+              title="For a day"
               subtitle="Excellent"
               route="corporate/getAverageOverallSocialDistancing"
             />

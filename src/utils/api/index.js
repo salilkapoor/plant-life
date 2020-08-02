@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { cookieLoad, decodeToken } from '../index.js'
+import { cookieLoad } from '../index.js'
 
 const API_GET = async (resourse) => {
   let token = cookieLoad('EnToken')

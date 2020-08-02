@@ -1,33 +1,33 @@
-import React, {createContext, useContext, useReducer} from 'react';
-import reducer from './reducer';
-import { cookieLoad, decodeToken } from '../utils';
+import React, { createContext, useContext, useReducer } from 'react'
+import reducer from './reducer'
+import { decodeToken } from '../utils'
 
-const StateContext = createContext();
+const StateContext = createContext()
 
 let initialState = {
-  token: "",
+  token: '',
   isLogin: false,
-  employeeId: "",
-  role: "",
-  name: "",
-  contact: "",
-  enterpriseId: "",
-  address: "",
-  city: "",
-  employeesCount:"",
-  user:"",
-  contactTracingEmployees:"",
-  alert:{
-    open:false,
-    status:"error",
-    message:""
+  employeeId: '',
+  role: '',
+  name: '',
+  contact: '',
+  enterpriseId: '',
+  address: '',
+  city: '',
+  employeesCount: '',
+  user: '',
+  contactTracingEmployees: '',
+  alert: {
+    open: false,
+    status: 'error',
+    message: ''
   }
 }
 
 // let token = cookieLoad('EnToken');
-let token = null;
-if(token){
-  let decodedToken = decodeToken(token);
+let token = null
+if (token) {
+  let decodedToken = decodeToken(token)
   initialState = {
     token: token,
     isLogin: true,
@@ -38,21 +38,21 @@ if(token){
     address: decodedToken.user.address,
     city: decodedToken.user.city,
     employeesCount: decodedToken.user.employeesCount,
-    user:decodedToken.user,
-    branchName:decodedToken.user.name,
-    contactTracingEmployees:"",
-    alert:{
-      open:false,
-      status:"error",
-      message:""
+    user: decodedToken.user,
+    branchName: decodedToken.user.name,
+    contactTracingEmployees: '',
+    alert: {
+      open: false,
+      status: 'error',
+      message: ''
     }
   }
 }
 
-export const StateProvider = ({ children }) =>(
+export const StateProvider = ({ children }) => (
   <StateContext.Provider value={useReducer(reducer, initialState)}>
     {children}
   </StateContext.Provider>
-);
+)
 
-export const useStateValue = () => useContext(StateContext);
+export const useStateValue = () => useContext(StateContext)

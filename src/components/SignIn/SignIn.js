@@ -1,19 +1,13 @@
 import React, { useState } from 'react'
-import { Redirect } from 'react-router-dom'
-import { useStateValue } from '../../store/stateProvider'
+
 import {
   Button,
   makeStyles,
   Paper,
   TextField,
-  Link,
   Container
 } from '@material-ui/core'
-import Logo from '../Assets/logo.png'
 import './style.css'
-
-import axios from 'axios'
-import { cookieSave, decodeToken } from '../../utils'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,8 +33,6 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function SignIn(props) {
-  const { errorMessage, successMessage } = props
-
   const classes = useStyles()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

@@ -7,8 +7,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import { StateProvider } from '../../../store/stateProvider'
 
 import SignIn from '../../SignIn/SignIn'
-import ForgotPassword from '../../SignIn/ForgotPassword'
-import ResetPassword from '../../SignIn/ResetPassword'
 import Signup from '../../SignIn/Signup'
 import ErrorBoundary from '../../ErrorBoundary'
 import Header from '../../Header'
@@ -54,16 +52,6 @@ const Routing = () => {
                 <PrivateRoute exact path="/" component={SignIn} />
                 <PublicRoute exact path="/signup" component={Signup} />
                 <PublicRoute exact path="/signin" component={SignIn} />
-                <PublicRoute
-                  exact
-                  path="/forgot-password"
-                  component={ForgotPassword}
-                />
-                <PublicRoute
-                  exact
-                  path="/reset-password/:token"
-                  component={ResetPassword}
-                />
                 <PublicRoute exact path="/settings" component={Settings} />
                 <PublicRoute exact path="/overview" component={Overview} />
               </Switch>
