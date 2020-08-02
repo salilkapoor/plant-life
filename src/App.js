@@ -4,8 +4,7 @@ import { FirebaseDatabaseProvider } from '@react-firebase/database'
 import firebase from 'firebase'
 import { config } from './utils/config'
 
-import AlertTemplate from 'react-alert-template-basic'
-import { positions, Provider } from 'react-alert'
+import { Provider } from 'react-alert'
 import { StateProvider } from './store/stateProvider'
 import { makeStyles } from '@material-ui/core/styles'
 import { PrivateRoute, PublicRoute } from './utils'
@@ -16,11 +15,7 @@ import ErrorBoundary from './components/ErrorBoundary'
 import Header from './components/Header'
 import Settings from './components/Settings'
 import Overview from './components/Overview'
-
-const options = {
-  timeout: 5000,
-  position: positions.TOP_CENTER
-}
+import AlertMeassage from './components/Alert'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     width: '0px',
-    paddingTop: '64px'
+    paddingTop: '64px',
+    backgroundColor: '#fafafa'
   }
 }))
 
@@ -40,7 +36,7 @@ const Routing = () => {
     <ErrorBoundary>
       <Router>
         <div className={classes.root}>
-          <Header />
+          <PrivateRoute path="/" component={Header} />
           <main className={classes.content}>
             <Suspense
               fallback={() => {
@@ -54,6 +50,7 @@ const Routing = () => {
                 <PrivateRoute exact path="/settings" component={Settings} />
                 <PrivateRoute exact path="/overview" component={Overview} />
               </Switch>
+              <AlertMeassage />
             </Suspense>
           </main>
         </div>
@@ -66,7 +63,7 @@ function App() {
   return (
     <FirebaseDatabaseProvider {...config.firebaseConfig} firebase={firebase}>
       <StateProvider>
-        <Provider template={AlertTemplate} {...options}>
+        <Provider>
           <Routing />
         </Provider>
       </StateProvider>

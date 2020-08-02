@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Grid, Container } from '@material-ui/core'
+import { useAlert } from 'react-alert'
 
 // Icons
 import { ReactComponent as Temperature } from '../Assets/icons/temperature.svg'
@@ -19,9 +20,10 @@ import { useStyles } from './style'
 import { useStateValue } from '../../store/stateProvider'
 import { FirebaseDatabaseNode } from '@react-firebase/database'
 
-const Overview = () => {
+const Overview = ({ errorMessage, successMessage }) => {
   const classes = useStyles()
-  const [store, dispatch] = useStateValue()
+  const [store] = useStateValue()
+  const alert = useAlert()
 
   return (
     <Container className={classes.root}>

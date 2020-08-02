@@ -63,6 +63,8 @@ const Header = (props) => {
   }
 
   useEffect(() => {
+    console.log('HERERE')
+
     let token = cookieLoad('token')
     if (token) {
       let decodedToken = decodeToken(token)
