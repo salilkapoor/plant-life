@@ -1,14 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import {
-  Card,
-  Grid,
-  Button,
-  Paper,
-  Typography,
-  CircularProgress
-} from '@material-ui/core'
+import { Grid, Paper, Typography, CircularProgress } from '@material-ui/core'
 
 import './style.css'
 
@@ -39,10 +31,7 @@ const CustomCard = ({ title, content, Icon, iconColor }) => {
       <Paper className={classes.content}>
         <Grid container>
           <Grid item xs={4} md={4} lg={4}>
-            <div
-              className="card-icon"
-              style={{ 'background-color': iconColor }}
-            >
+            <div className="card-icon" style={{ backgroundColor: iconColor }}>
               <Icon />
             </div>
           </Grid>

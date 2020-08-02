@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 import { useStateValue } from '../store/stateProvider'
 
 export const PrivateRoute = ({ component: Component, ...rest }) => {
-  const [store, dispatch] = useStateValue()
+  const [, dispatch] = useStateValue()
   const errorMessage = (message) => {
     dispatch({
       type: 'ERROR_MESSAGES',
@@ -49,7 +49,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
 }
 
 export const PublicRoute = ({ component: Component, ...rest }) => {
-  const [store, dispatch] = useStateValue()
+  const [, dispatch] = useStateValue()
   const errorMessage = (message) => {
     dispatch({
       type: 'ERROR_MESSAGES',

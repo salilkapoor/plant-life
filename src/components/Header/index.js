@@ -95,7 +95,7 @@ const Header = (props) => {
       .catch((err) => {
         console.log('Error', err)
       })
-  }, [])
+  }, [dispatch])
 
   const refresh = () => {
     window.location.reload()

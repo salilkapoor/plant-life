@@ -8,7 +8,7 @@ import useStyles from './style.js'
 
 function SignIn(props) {
   let history = useHistory()
-  const [, dispatch] = useStateValue()
+  const [store, dispatch] = useStateValue()
 
   const classes = useStyles()
   const [email, setEmail] = useState('')

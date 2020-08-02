@@ -4,11 +4,9 @@ self.addEventListener('notificationclick', function (event) {
   var notification = event.notification
   var action = event.action
 
-  console.log(notification)
-
   if (action === 'confirm') {
     console.log('Confirm was chosen')
-    notification.close()
+    // notification.close()
   } else {
     console.log(action)
     // event.waitUntil(
@@ -38,9 +36,9 @@ self.addEventListener('push', function (event) {
 
   var data = { title: 'New!', content: 'Something new happened!', openUrl: '/' }
 
-  if (event.data) {
-    data = JSON.parse(event.data.text())
-  }
+  // if (event.data) {
+  //   data = JSON.parse(event.data.text())
+  // }
 
   var options = {
     body: data.content,

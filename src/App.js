@@ -17,6 +17,8 @@ import Header from './components/Header'
 import Settings from './components/Settings'
 import Overview from './components/Overview'
 
+import notifications from './hooks/useNotification'
+
 const options = {
   timeout: 5000,
   position: positions.TOP_CENTER
@@ -32,6 +34,15 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '64px'
   }
 }))
+
+const {
+  askForNotificationPermission,
+  showNotification,
+  displayNotification
+} = notifications()
+
+askForNotificationPermission()
+displayNotification('Hiiiiiii')
 
 const Routing = () => {
   const classes = useStyles()

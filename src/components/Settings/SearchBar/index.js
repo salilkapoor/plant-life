@@ -1,11 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import {
-  Grid,
-  TextField,
-  InputAdornment,
-  Button,
-  useMediaQuery
-} from '@material-ui/core'
+import React, { useState } from 'react'
+import { Grid, TextField, InputAdornment, Button } from '@material-ui/core'
 import { Search, Keyboard } from '@material-ui/icons'
 import { API_GET, API_POST } from '../../../utils/api'
 
@@ -17,7 +11,6 @@ const SearchBar = (props) => {
   const [selectedPlantId, setselectedPlantId] = useState('')
   const [deviceId, setDeviceId] = useState('')
   const [searchPlant, setSearchPlant] = useState([])
-  const matches = useMediaQuery('(max-width:600px)')
 
   const handlePlantName = (e) => {
     setPlantName(e.target.value)

@@ -53,7 +53,7 @@ const CustomLineChart = ({ heading, title, subtitle, route }) => {
       .catch((err) => {
         console.log(err)
       })
-  }, [type])
+  }, [type, route])
 
   const handleType = (e) => {
     let map = {

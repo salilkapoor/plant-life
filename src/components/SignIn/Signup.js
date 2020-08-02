@@ -33,17 +33,17 @@ function Signup(props) {
   }
 
   const validEmailRegex = RegExp(
-    /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    /^(([^<>()\\[\]\\.,;:\s@\\"]+(\.[^<>()\\[\]\\.,;:\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\]\\.,;:\s@\\"]+\.)+[^<>()[\]\\.,;:\s@\\"]{2,})$/i
   )
 
   const handleSignup = () => {
     if (
-      state.firstName == '' ||
-      state.lastName == '' ||
-      state.contact == '' ||
-      state.email == '' ||
-      state.password == '' ||
-      state.confirmPassword == ''
+      state.firstName === '' ||
+      state.lastName === '' ||
+      state.contact === '' ||
+      state.email === '' ||
+      state.password === '' ||
+      state.confirmPassword === ''
     ) {
       errorMessage('All field required')
     } else if (!validEmailRegex.test(state.email)) {
@@ -82,9 +82,9 @@ function Signup(props) {
 
       <form className={classes.form} id="signup" noValidate>
         <Grid container spacing={2} className={classes.fieldsWrapper}>
-          <Grid xs={12} md={6}>
+          <Grid xs={12} md={12}>
             <Grid container spacing={3}>
-              <Grid item xs={12} md={12}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   variant="outlined"
                   required
@@ -98,7 +98,7 @@ function Signup(props) {
                   }}
                 />
               </Grid>
-              <Grid xs={12} md={12} item>
+              <Grid xs={12} md={6} item>
                 <TextField
                   variant="outlined"
                   required
@@ -112,7 +112,7 @@ function Signup(props) {
                   }}
                 />
               </Grid>
-              <Grid xs={12} md={12} item>
+              <Grid xs={12} md={6} item>
                 <TextField
                   variant="outlined"
                   required
@@ -127,7 +127,7 @@ function Signup(props) {
                   }}
                 />
               </Grid>
-              <Grid xs={12} md={12} item>
+              <Grid xs={12} md={6} item>
                 <TextField
                   variant="outlined"
                   required
@@ -142,7 +142,7 @@ function Signup(props) {
                   }}
                 />
               </Grid>
-              <Grid xs={12} md={12} item>
+              <Grid xs={12} md={6} item>
                 <TextField
                   variant="outlined"
                   required
@@ -158,7 +158,7 @@ function Signup(props) {
                   }}
                 />
               </Grid>
-              <Grid xs={12} md={12} item>
+              <Grid xs={12} md={6} item>
                 <TextField
                   variant="outlined"
                   required
@@ -198,10 +198,10 @@ function Signup(props) {
               </Grid>
             </Grid>
           </Grid>
-
+          {/* 
           <Grid container justify="center" md={6} xs>
             <img src={signupImg} alt="logo" className={classes.signupImg} />
-          </Grid>
+          </Grid> */}
         </Grid>
       </form>
     </Paper>

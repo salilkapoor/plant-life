@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import App from './components/templates/App/App'
+import App from './App'
 import { registerWorker } from './utils/sw/serviceWorker'
 
 import './index.css'
@@ -13,4 +13,4 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
-// registerWorker()
+registerWorker()

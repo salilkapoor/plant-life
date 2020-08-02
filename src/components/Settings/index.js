@@ -4,7 +4,6 @@ import { Container, Grid, Paper } from '@material-ui/core'
 import SearchBar from './SearchBar'
 import Card from './Card'
 
-import { useStateValue } from '../../store/stateProvider'
 import useStyles from './style.js'
 
 import { API_GET } from '../../utils/api'

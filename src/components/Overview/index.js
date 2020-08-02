@@ -1,5 +1,6 @@
 import React from 'react'
 import { Grid, Container } from '@material-ui/core'
+import { FirebaseDatabaseNode } from '@react-firebase/database'
 
 // Icons
 import { ReactComponent as Temperature } from '../Assets/icons/temperature.svg'
@@ -17,7 +18,6 @@ import { useStyles } from './style'
 
 // Store
 import { useStateValue } from '../../store/stateProvider'
-import { FirebaseDatabaseNode } from '@react-firebase/database'
 
 const Overview = () => {
   const classes = useStyles()
@@ -25,7 +25,6 @@ const Overview = () => {
 
   return (
     <Container className={classes.root}>
-      {/* Cards having count */}
       <Container className={classes.block}>
         <Grid container spacing={3}>
           <Card
@@ -50,8 +49,7 @@ const Overview = () => {
                     title="Humidity"
                     content={`${data?.value?.humidity} %`}
                     Icon={Humidity}
-                    iconColor="
-                #6e00f0"
+                    iconColor="#6e00f0"
                   />
                 </>
               )
@@ -73,7 +71,6 @@ const Overview = () => {
           </FirebaseDatabaseNode>
         </Grid>
       </Container>
-      {/* StandardRating and graph */}
       <Container className={classes.block}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={3} sm={12} lg={3}>
