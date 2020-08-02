@@ -1,38 +1,15 @@
 import React, { useState } from 'react'
-
-import {
-  Button,
-  makeStyles,
-  Paper,
-  TextField,
-  Container
-} from '@material-ui/core'
-import './style.css'
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(4),
-    padding: theme.spacing(5),
-    margin: 'auto',
-    maxWidth: 750,
-    maxHeight: 750,
-    borderRadius: 5,
-    border: '0.5px solid #a6a6a6'
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
-  },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1)
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
-}))
+import { useHistory, Link } from 'react-router-dom'
+import { useStateValue } from '../../store/stateProvider'
+import { Button, Paper, TextField, Container, Grid } from '@material-ui/core'
+import { API_POST } from '../../utils/api'
+import { cookieSave, decodeToken } from '../../utils'
+import useStyles from './style.js'
 
 function SignIn(props) {
+  let history = useHistory()
+  const [, dispatch] = useStateValue()
+
   const classes = useStyles()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -52,7 +29,27 @@ function SignIn(props) {
 
   function signin(e) {
     e.preventDefault()
-    props.history.push('/overview')
+
+    API_POST('login', {
+      email,
+      password
+    })
+      .then((response) => {
+        cookieSave(response.data.token)
+        let decodedToken = decodeToken(response.data.token)
+        dispatch({
+          type: 'INITIALIZE_LOGIN_SUCCESS',
+          payload: {
+            token: response.data.token,
+            isLogin: true,
+            uid: decodedToken.uid
+          }
+        })
+        history.push('/overview')
+      })
+      .catch((err) => {
+        console.log('Error', err)
+      })
   }
 
   return (
@@ -106,6 +103,9 @@ function SignIn(props) {
           </Button>
         </form>
       </Paper>
+      <Grid container justify="center" className={classes.btns}>
+        <Link to="/signup">Signup</Link>
+      </Grid>
     </Container>
   )
 }

@@ -6,7 +6,7 @@ const API_GET = async (resourse) => {
   return await axios
     .get(`${process.env.REACT_APP_API_URL}/${resourse}`, {
       headers: {
-        token: token
+        Authorization: `Bearer ${token}`
       }
     })
     .then((response) => {
@@ -22,7 +22,7 @@ const API_POST = async (resourse, body) => {
   return await axios
     .post(`${process.env.REACT_APP_API_URL}/${resourse}`, body, {
       headers: {
-        token: token
+        Authorization: `Bearer ${token}`
       }
     })
     .then((response) => {
@@ -38,7 +38,7 @@ const API_PATCH = async (resourse, body) => {
   return await axios
     .patch(`${process.env.REACT_APP_API_URL}/${resourse}`, body, {
       headers: {
-        token: token
+        Authorization: `Bearer ${token}`
       }
     })
     .then((response) => {
@@ -53,7 +53,7 @@ const API_DELETE = async (resourse, body) => {
   return await axios
     .delete(`${process.env.REACT_APP_API_URL}/${resourse}`, {
       headers: {
-        token: token
+        Authorization: `Bearer ${token}`
       },
       data: body
     })

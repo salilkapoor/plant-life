@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState, useEffect } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 import {
   Grid,
   Paper,
-  Container,
   Select,
   MenuItem,
   Typography,
-  CircularProgress,
-} from '@material-ui/core';
-import { API_GET } from '../../../utils/api';
+  CircularProgress
+} from '@material-ui/core'
+import { API_GET } from '../../../utils/api'
 
 import {
   LineChart,
@@ -19,45 +18,51 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer,
-} from 'recharts';
+  ResponsiveContainer
+} from 'recharts'
 
 const useStyles = makeStyles((theme) => ({
   content: {
     flex: '1 0 auto',
     padding: '17px 40px',
     minWidth: 300,
-    minHeight: 375,
+    minHeight: 375
   },
   heading: {
-    fontSize: '18px',
+    fontSize: '18px'
   },
   title: {
-    fontSize: '16px',
+    fontSize: '16px'
   },
   subtitle: {
-    fontSize: '14px',
-  },
-}));
+    fontSize: '14px'
+  }
+}))
 
 const CustomLineChart = ({ heading, title, subtitle, route }) => {
-  const classes = useStyles();
-  const [day, setDays] = useState(14);
-  const [data, setData] = useState([]);
+  const classes = useStyles()
+  const [type, setType] = useState('tempHumidity')
+  const [data, setData] = useState([])
+  const [head, setHead] = useState(heading)
 
   useEffect(() => {
-    API_GET(`${route}?days=${day}`)
+    API_GET(`${route}/${type}`)
       .then((res) => {
-        setData(res.data.dataset);
+        setData(res.data.dataset)
       })
       .catch((err) => {
-        console.log(err);
-      });
-  }, [day]);
+        console.log(err)
+      })
+  }, [type])
 
-  const handleChangeDays = (e) => {
-    setDays(e.target.value);
-  };
+  const handleType = (e) => {
+    let map = {
+      moisture: 'Moisture',
+      tempHumidity: 'Temperature'
+    }
+    setHead(map[e.target.value])
+    setType(e.target.value)
+  }
 
   return (
     <Grid item xs={12} md={12} sm={12} lg={12}>
@@ -66,7 +71,7 @@ const CustomLineChart = ({ heading, title, subtitle, route }) => {
           <Grid item xs={12} md={9} sm={12} lg={9}>
             <Grid item xs>
               <Typography className={classes.heading}>
-                <b>{heading}</b>
+                <b>{head}</b>
               </Typography>
             </Grid>
             <Grid item xs>
@@ -79,14 +84,14 @@ const CustomLineChart = ({ heading, title, subtitle, route }) => {
 
           <Grid item xs={3} md={3} sm={3} lg={3}>
             <Select
-              value={day}
+              value={type}
               displayEmpty
               className={'chart-filter'}
               inputProps={{ 'aria-label': 'Without label' }}
-              onChange={handleChangeDays}
+              onChange={handleType}
             >
-              <MenuItem value={7}>Last 7 Days</MenuItem>
-              <MenuItem value={14}>Last 14 Days</MenuItem>
+              <MenuItem value={'moisture'}>Moisture</MenuItem>
+              <MenuItem value={'tempHumidity'}>Temperature</MenuItem>
             </Select>
           </Grid>
         </Grid>
@@ -97,7 +102,7 @@ const CustomLineChart = ({ heading, title, subtitle, route }) => {
               height: 272,
               display: 'flex',
               justifyContent: 'center',
-              alignItems: 'center',
+              alignItems: 'center'
             }}
           >
             {data.length > 0 ? (
@@ -129,7 +134,7 @@ const CustomLineChart = ({ heading, title, subtitle, route }) => {
         </Grid>
       </Paper>
     </Grid>
-  );
-};
+  )
+}
 
-export default CustomLineChart;
+export default CustomLineChart

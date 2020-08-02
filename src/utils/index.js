@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 import { useStateValue } from '../store/stateProvider'
 
 export const PrivateRoute = ({ component: Component, ...rest }) => {
-  const [, dispatch] = useStateValue()
+  const [store, dispatch] = useStateValue()
   const errorMessage = (message) => {
     dispatch({
       type: 'ERROR_MESSAGES',
@@ -34,7 +34,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        cookie.load('EnToken') !== undefined ? (
+        cookie.load('token') !== undefined ? (
           <Component
             {...props}
             successMessage={successMessage}
@@ -79,34 +79,27 @@ export const PublicRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        cookie.load('EnToken') === undefined ? (
+        cookie.load('token') === undefined ? (
           <Component
             {...props}
             successMessage={successMessage}
             errorMessage={errorMessage}
           />
         ) : (
-          <>
-            {store.role !== 2 ? (
-              <Redirect to="/dashboard" />
-            ) : (
-              <Redirect to="/overview" />
-            )}
-          </>
+          <Redirect to="/overview" />
         )
       }
     />
   )
 }
-export const cookieLoad = () => cookie.load('EnToken')
+export const cookieLoad = () => cookie.load('token')
 
-export const cookieSave = (token) =>
-  cookie.save('EnToken', token, { path: '/' })
+export const cookieSave = (token) => cookie.save('token', token, { path: '/' })
 
-export const cookieRemove = () => cookie.remove('EnToken', { path: '/' })
+export const cookieRemove = () => cookie.remove('token', { path: '/' })
 
 export const decodeToken = (token) => {
-  let tokenloaded = token ? token : cookie.load('EnToken')
+  let tokenloaded = token ? token : cookie.load('token')
   if (tokenloaded !== undefined) {
     return jwt.decode(tokenloaded)
   }

@@ -13,4 +13,4 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
-registerWorker()
+// registerWorker()

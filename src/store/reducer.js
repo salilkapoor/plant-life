@@ -5,11 +5,7 @@ export default (state, action) => {
         ...state,
         isLogin: action.payload.isLogin,
         token: action.payload.token,
-        enterpriseId: action.payload.enterpriseId,
-        role: action.payload.role,
-        name: action.payload.name,
-        contact: action.payload.contact,
-        branchName: action.payload.branchName
+        uid: action.payload.uid
       }
 
     case 'LOGIN_PERSIST':
@@ -17,11 +13,7 @@ export default (state, action) => {
         ...state,
         isLogin: action.payload.isLogin,
         token: action.payload.token,
-        enterpriseId: action.payload.enterpriseId,
-        role: action.payload.role,
-        name: action.payload.name,
-        contact: action.payload.contact,
-        branchName: action.payload.branchName
+        uid: action.payload.uid
       }
 
     case 'LOGOUT_SUCCESS':
@@ -29,15 +21,21 @@ export default (state, action) => {
         ...state,
         isLogin: action.payload.isLogin,
         token: action.payload.token,
-        enterpriseId: action.payload.enterpriseId,
-        role: action.payload.role,
-        name: action.payload.name,
-        contact: action.payload.contact
+        uid: action.payload.uid
       }
-    case 'CONTACT_TRACING':
+
+    case 'PLANT_SELECTED':
       return {
         ...state,
-        contactTracingEmployees: action.payload.contactTracingEmployees
+        plantSelected: {
+          id: action.payload.plantId,
+          commonName: action.payload.commonName,
+          humidity: action.payload.humidity,
+          maxTemp: action.payload.maxTemp,
+          minTemp: action.payload.minTemp,
+          moisture: action.payload.moisture,
+          deviceId: action.payload.deviceId
+        }
       }
     case 'ERROR_MESSAGES':
       return {

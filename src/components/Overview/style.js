@@ -1,24 +1,23 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-    marginTop: '80px',
+    width: '100%'
   },
   cards: {
     display: 'flex',
     justifyContent: 'center',
-    flexWrap: 'wrap',
+    flexWrap: 'wrap'
   },
   paper: {
     marginTop: theme.spacing(2),
-    padding: theme.spacing(3),
+    padding: theme.spacing(3)
   },
   paperTable: {
     padding: theme.spacing(2),
-    boxShadow: 'none',
+    boxShadow: 'none'
   },
   block: {
-    margin: '14px 0',
-  },
-}));
+    margin: '14px 0'
+  }
+}))
