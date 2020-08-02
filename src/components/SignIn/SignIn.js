@@ -6,7 +6,7 @@ import { API_POST } from '../../utils/api'
 import { cookieSave, decodeToken } from '../../utils'
 import useStyles from './style.js'
 
-function SignIn(props) {
+function SignIn({ errorMessage, successMessage }) {
   let history = useHistory()
   const [store, dispatch] = useStateValue()
 
@@ -35,6 +35,7 @@ function SignIn(props) {
       password
     })
       .then((response) => {
+        successMessage('Welcome')
         cookieSave(response.data.token)
         let decodedToken = decodeToken(response.data.token)
         dispatch({
@@ -48,7 +49,7 @@ function SignIn(props) {
         history.push('/overview')
       })
       .catch((err) => {
-        console.log('Error', err)
+        errorMessage(err.msg)
       })
   }
 

@@ -2,7 +2,7 @@ import axios from 'axios'
 import { cookieLoad } from '../index.js'
 
 const API_GET = async (resourse) => {
-  let token = cookieLoad('EnToken')
+  let token = cookieLoad('token')
   return await axios
     .get(`${process.env.REACT_APP_API_URL}/${resourse}`, {
       headers: {
@@ -18,7 +18,7 @@ const API_GET = async (resourse) => {
 }
 
 const API_POST = async (resourse, body) => {
-  let token = cookieLoad('EnToken')
+  let token = cookieLoad('token')
   return await axios
     .post(`${process.env.REACT_APP_API_URL}/${resourse}`, body, {
       headers: {
@@ -34,7 +34,7 @@ const API_POST = async (resourse, body) => {
 }
 
 const API_PATCH = async (resourse, body) => {
-  let token = cookieLoad('EnToken')
+  let token = cookieLoad('token')
   return await axios
     .patch(`${process.env.REACT_APP_API_URL}/${resourse}`, body, {
       headers: {
@@ -49,7 +49,7 @@ const API_PATCH = async (resourse, body) => {
     })
 }
 const API_DELETE = async (resourse, body) => {
-  let token = cookieLoad('EnToken')
+  let token = cookieLoad('token')
   return await axios
     .delete(`${process.env.REACT_APP_API_URL}/${resourse}`, {
       headers: {

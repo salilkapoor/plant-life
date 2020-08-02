@@ -48,7 +48,7 @@ onMessageListener()
     console.log('Errrrorr', err)
   })
 
-const Overview = () => {
+const Overview = ({ errorMessage, successMessage }) => {
   const classes = useStyles()
   const [store] = useStateValue()
 
