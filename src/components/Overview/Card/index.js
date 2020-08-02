@@ -35,7 +35,7 @@ const CustomCard = ({ title, content, Icon, iconColor }) => {
   const classes = useStyles()
 
   return (
-    <Grid item id="card" xs={12} sm={8} md={6} lg={3}>
+    <Grid item id="card" xs={12} sm={12} md={6} lg={3}>
       <Paper className={classes.content}>
         <Grid container>
           <Grid item xs={4} md={4} lg={4}>
