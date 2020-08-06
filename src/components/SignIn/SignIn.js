@@ -1,45 +1,14 @@
 import React, { useState } from 'react'
-import { Redirect } from 'react-router-dom'
+import { useHistory, Link, Redirect } from 'react-router-dom'
 import { useStateValue } from '../../store/stateProvider'
-import {
-  Button,
-  makeStyles,
-  Paper,
-  TextField,
-  Link,
-  Container
-} from '@material-ui/core'
-import Logo from '../Assets/logo.png'
-import './style.css'
-
-import axios from 'axios'
+import { Button, Paper, TextField, Container, Grid } from '@material-ui/core'
+import { API_POST } from '../../utils/api'
 import { cookieSave, decodeToken } from '../../utils'
+import useStyles from './style.js'
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(4),
-    padding: theme.spacing(5),
-    margin: 'auto',
-    maxWidth: 750,
-    maxHeight: 750,
-    borderRadius: 5,
-    border: '0.5px solid #a6a6a6'
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
-  },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1)
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
-}))
-
-function SignIn(props) {
-  const { errorMessage, successMessage } = props
+function SignIn({ errorMessage, successMessage }) {
+  let history = useHistory()
+  const [store, dispatch] = useStateValue()
 
   const classes = useStyles()
   const [email, setEmail] = useState('')
@@ -60,61 +29,91 @@ function SignIn(props) {
 
   function signin(e) {
     e.preventDefault()
-    props.history.push('/overview')
+
+    API_POST('login', {
+      email,
+      password
+    })
+      .then((response) => {
+        successMessage('Welcome')
+        cookieSave(response.data.token)
+        let decodedToken = decodeToken(response.data.token)
+        dispatch({
+          type: 'INITIALIZE_LOGIN_SUCCESS',
+          payload: {
+            token: response.data.token,
+            isLogin: true,
+            uid: decodedToken.uid
+          }
+        })
+        history.push('/overview')
+      })
+      .catch((err) => {
+        errorMessage(err.msg)
+      })
   }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <h1>Plant Control System</h1>
-      <Paper className={classes.paper}>
-        <div className="signin-title">
-          <h2>SignIn</h2>
-          <span>to continue to Admin Dashboard</span>
-        </div>
-        <form className={classes.form} noValidate onSubmit={signin}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            value={email}
-            onChange={(e) => {
-              credentials(e)
-            }}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            value={password}
-            autoComplete="current-password"
-            onChange={(e) => {
-              credentials(e)
-            }}
-          />
+    <>
+      {store?.token ? (
+        <Redirect to="/overview" />
+      ) : (
+        <Container component="main" maxWidth="xs">
+          <h1>Plant Control System</h1>
+          <Paper className={classes.paper}>
+            <div className="signin-title">
+              <h2>SignIn</h2>
+              <span>to continue to Admin Dashboard</span>
+            </div>
+            <form className={classes.form} noValidate onSubmit={signin}>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                value={email}
+                onChange={(e) => {
+                  credentials(e)
+                }}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                value={password}
+                autoComplete="current-password"
+                onChange={(e) => {
+                  credentials(e)
+                }}
+              />
 
-          <Button
-            fullWidth
-            variant="contained"
-            type="submit"
-            color="primary"
-            className={classes.submit}
-            onClick={signin}
-          >
-            Sign In
-          </Button>
-        </form>
-      </Paper>
-    </Container>
+              <Button
+                fullWidth
+                variant="contained"
+                type="submit"
+                color="primary"
+                className={classes.submit}
+                onClick={signin}
+              >
+                Sign In
+              </Button>
+            </form>
+          </Paper>
+          <Grid container justify="center" className={classes.btns}>
+            <Link to="/signup">Signup</Link>
+          </Grid>
+        </Container>
+      )}
+    </>
   )
 }
 

@@ -24,23 +24,36 @@ const useNotification = () => {
           }
         ]
       }
+
       navigator.serviceWorker.ready.then(function (swReg) {
-        swReg.showNotification('Successfully subscribed', options)
+        swReg.showNotification(
+          'You have successfully subscribed to notifications',
+          options
+        )
       })
     }
   }
 
   function askForNotificationPermission() {
-    Notification.requestPermission(function (result) {
-      console.log(`User choice ${result}`)
-      if (result !== 'granted') {
-        console.log('No notification permission granted!')
-      } else {
-        showNotification()
-      }
-    })
+    if (window.Notification && Notification.permission !== 'granted') {
+      Notification.requestPermission(function (status) {
+        if (Notification.permission !== status) {
+          Notification.permission = status
+        }
+      })
+    }
   }
-  return { askForNotificationPermission, showNotification }
+
+  function displayNotification(message) {
+    if (Notification.permission === 'granted') {
+      new Notification('Hello....!')
+      navigator.serviceWorker.getRegistration().then(function (reg) {
+        reg.showNotification(message)
+      })
+    }
+  }
+
+  return { askForNotificationPermission, showNotification, displayNotification }
 }
 
 export default useNotification

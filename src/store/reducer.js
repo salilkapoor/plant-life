@@ -1,50 +1,47 @@
 export default (state, action) => {
-  
-  switch(action.type) {
+  switch (action.type) {
     case 'INITIALIZE_LOGIN_SUCCESS':
       return {
         ...state,
         isLogin: action.payload.isLogin,
         token: action.payload.token,
-        enterpriseId: action.payload.enterpriseId,
-        role: action.payload.role,
-        name: action.payload.name,
-        contact: action.payload.contact,
-        branchName: action.payload.branchName
+        uid: action.payload.uid
       }
 
     case 'LOGIN_PERSIST':
-        return {
-          ...state,
-          isLogin: action.payload.isLogin,
-          token: action.payload.token,
-          enterpriseId: action.payload.enterpriseId,
-          role: action.payload.role,
-          name: action.payload.name,
-          contact: action.payload.contact,
-          branchName: action.payload.branchName
-        }
+      return {
+        ...state,
+        isLogin: action.payload.isLogin,
+        token: action.payload.token,
+        uid: action.payload.uid
+      }
 
     case 'LOGOUT_SUCCESS':
       return {
         ...state,
         isLogin: action.payload.isLogin,
         token: action.payload.token,
-        enterpriseId: action.payload.enterpriseId,
-        role: action.payload.role,
-        name: action.payload.name,
-        contact: action.payload.contact
+        uid: action.payload.uid
       }
-      case 'CONTACT_TRACING':
-        return {
-          ...state,
-          contactTracingEmployees:action.payload.contactTracingEmployees
+
+    case 'PLANT_SELECTED':
+      return {
+        ...state,
+        plantSelected: {
+          id: action.payload.plantId,
+          commonName: action.payload.commonName,
+          humidity: action.payload.humidity,
+          maxTemp: action.payload.maxTemp,
+          minTemp: action.payload.minTemp,
+          moisture: action.payload.moisture,
+          deviceId: action.payload.deviceId
         }
-        case 'ERROR_MESSAGES':
-          return {
-            ...state,
-            alert:action.payload.alert
-          }
+      }
+    case 'ERROR_MESSAGES':
+      return {
+        ...state,
+        alert: action.payload.alert
+      }
     default:
       return state
   }
